@@ -1,0 +1,149 @@
+/* ===== TEMA: latar hitam-merah, teks kuning dan abu ===== */
+:root {
+  --merah: #e11d2e;
+  --merah-tua: #5a0a12;
+  --kuning: #ffd23f;
+  --abu: #c4c4c4;
+  --abu-tua: #8a8a8a;
+  --hitam: #050505;
+  --panel: #120708;
+  --ruang: 120px;   /* jarak atas+bawah body: 80px + 40px */
+}
+
+body {
+  margin: 0;
+  color: var(--abu);
+  font-family: 'Rajdhani', Arial, sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  padding: 80px 20px 40px;
+  background:
+    radial-gradient(circle at 0% 0%, var(--merah-tua) 0%, transparent 45%),
+    radial-gradient(circle at 100% 100%, #3d0710 0%, transparent 50%),
+    var(--hitam);
+  background-attachment: fixed;
+}
+
+/* Judul */
+h1, h2, h3 { font-family: 'Cinzel', Georgia, serif; letter-spacing: 0.08em; }
+h1 {
+  font-size: 5rem; text-align: center; margin: 10px 0 0;
+  color: var(--kuning);
+  text-shadow: 0 0 25px var(--merah), 0 0 6px #000;
+}
+h2 { color: var(--kuning); text-shadow: 0 0 14px #e11d2e80; }
+h3 { color: var(--merah); }
+b { color: var(--kuning); }
+
+/* Halaman 1: rata tengah, teks dibuat lebih kecil agar muat satu layar */
+.halaman:first-of-type { text-align: center; }
+.halaman:first-of-type h3 { letter-spacing: 0.15em; font-size: 1.05rem; margin: 6px 0; }
+.halaman:first-of-type p { margin: 8px 0 14px; }
+
+/* Halaman 1: tidak bisa di-scroll (class dipasang oleh script.js) */
+html.tanpa-scroll, body.tanpa-scroll { overflow: hidden; height: 100%; overscroll-behavior: none; }
+body.tanpa-scroll { position: fixed; width: 100%; }
+/* Halaman 1 dibuat PAS setinggi layar, sisanya dipotong -> tidak ada yang bisa di-scroll */
+.halaman:first-of-type.aktif { height: calc(100vh - var(--ruang)); height: calc(100dvh - var(--ruang)); overflow: hidden; }
+.halaman:first-of-type .hero { height: 34vh; height: 34dvh; margin-bottom: 8px; }
+
+/* Hanya satu halaman tampil */
+.halaman { display: none; max-width: 860px; margin: auto; }
+.halaman.aktif { display: block; animation: muncul 0.7s; }
+@keyframes muncul { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; } }
+
+/* Menu & progres */
+nav { position: fixed; top: 4px; left: 0; right: 0; z-index: 8; background: #050505f0; padding: 10px; text-align: center; border-bottom: 1px solid #e11d2e66; }
+nav a { font-family: 'Cinzel', serif; font-size: 0.85rem; color: var(--abu-tua); margin: 0 8px; text-decoration: none; }
+nav a:hover { color: var(--abu); }
+nav a.aktif { color: var(--kuning); border-bottom: 2px solid var(--merah); }
+#progres { position: fixed; top: 0; left: 0; height: 4px; width: 0; z-index: 9; transition: width 0.5s; background: linear-gradient(90deg, var(--merah), var(--kuning)); }
+
+/* Tombol */
+button, .tombol {
+  font-family: 'Cinzel', serif; font-size: 0.9rem;
+  background: #1a0508; color: var(--kuning); border: 1px solid var(--merah);
+  padding: 10px 18px; margin: 4px; cursor: pointer; text-decoration: none; display: inline-block;
+  transition: 0.25s;
+}
+button:hover, .tombol:hover { background: var(--merah); color: #fff; box-shadow: 0 0 18px var(--merah); }
+.besar { padding: 18px 30px; font-size: 1rem; box-shadow: 0 0 20px #e11d2e55; animation: denyut 2.5s infinite; }
+@keyframes denyut { 50% { box-shadow: 0 0 35px #e11d2eaa; } }
+
+/* Panel */
+.kotak { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.panel, .kartu, #spoiler {
+  background: var(--panel); border: 1px solid #e11d2e55; padding: 16px;
+  border-top: 3px solid var(--merah);
+}
+
+/* TEMPAT FOTO */
+.gambar {
+  position: relative; height: 280px; margin-bottom: 14px; overflow: hidden;
+  display: grid; place-items: center; text-align: center; padding: 10px;
+  font-size: 0.85rem; color: var(--abu-tua);
+  border: 1px dashed var(--merah);
+  background: repeating-linear-gradient(45deg, #0a0506, #0a0506 12px, #140809 12px, #140809 24px);
+}
+.gambar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
+.gambar:hover img { transform: scale(1.05); }
+.hero { height: 380px; }
+.lebar { height: 320px; }
+.kecil { height: 170px; }
+.baris3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.baris3 .gambar { height: 170px; }
+
+/* Galeri meme */
+.baris4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 14px; }
+.baris4 .gambar { height: 110px; margin-bottom: 0; cursor: pointer; }
+.baris4 .gambar:hover { border-color: var(--kuning); }
+.caption { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 1.7rem; color: var(--kuning); text-align: center; }
+
+/* Timeline */
+.garis { list-style: none; padding-left: 24px; border-left: 3px solid; border-image: linear-gradient(var(--merah), var(--kuning)) 1; }
+.garis li { margin-bottom: 28px; }
+
+/* Kutipan */
+.kartu { margin-bottom: 14px; transition: 0.3s; }
+.kartu:hover { border-color: var(--kuning); box-shadow: 0 0 22px #ffd23f40; transform: translateY(-3px); }
+.kartu p { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 1.7rem; line-height: 1.25; color: var(--kuning); }
+.akhir { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-style: italic; color: var(--kuning); text-align: center; margin: 40px 0; }
+
+/* Bagian pilihan halaman 4: semua ke tengah (flexbox) */
+.tengah-teks { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+.penutup { text-align: center; margin-top: 50px; }
+
+/* Tombol Back to the Beginning: tengah horizontal */
+#awal { display: block; margin-left: auto; margin-right: auto; }
+
+#spoiler.sembunyi { display: none; }
+input[type=range] { width: 100%; accent-color: var(--merah); }
+
+/* Hormati pengguna yang tidak suka animasi */
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* ===== FLEXBOX UNTUK ANDROID / HP (layar sempit) ===== */
+@media (max-width: 600px) {
+  :root { --ruang: 110px; }   /* di HP: 70px + 40px */
+  body { padding: 70px 14px 40px; }
+  h1 { font-size: 3rem; }
+
+  /* Kotak info & foto: susun ke bawah */
+  .kotak, .baris3, .baris4 { display: flex; flex-direction: column; gap: 12px; }
+  .baris3 .gambar { height: 200px; margin-bottom: 0; }
+  .baris4 .gambar { height: 150px; }
+
+  /* Menu atas: satu baris yang bisa digeser ke samping */
+  nav { display: flex; overflow-x: auto; gap: 14px; justify-content: flex-start; }
+  nav a { flex-shrink: 0; white-space: nowrap; }
+
+  /* Halaman 1: isi dipusatkan, foto lebih pendek agar muat satu layar */
+  .halaman.aktif:first-of-type { display: flex; flex-direction: column; align-items: center; }
+  .halaman:first-of-type .hero { width: 100%; height: 26vh; height: 26dvh; }
+  .halaman:first-of-type h3 { font-size: 0.85rem; letter-spacing: 0.05em; }
+  .besar { width: 100%; padding: 14px 16px; }
+
+  /* Tombol pilihan & Netflix */
+  #embrace, #human, .tombol, #ganti { display: block; width: 100%; box-sizing: border-box; text-align: center; margin: 6px 0; }
+}
